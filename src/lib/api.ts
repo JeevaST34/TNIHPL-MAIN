@@ -1,6 +1,7 @@
-// Thin client over the TNIHPL public API. Base URL is configurable; defaults to the dev API.
+// Thin client over the TNIHPL public API. Base URL is configurable; in production
+// we default to the same-origin /api/v1 route so Vercel rewrites it correctly.
 export const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "http://localhost:5080/api/v1";
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/api/v1";
 
 export type Hostel = {
   id: string;
@@ -46,10 +47,16 @@ export const api = {
     http<Availability>(`/public/availability?hostelId=${hostelId}`),
 
   sendOtp: (email: string, purpose: "registration" | "feedback") =>
-    http<void>("/public/otp/send", { method: "POST", body: JSON.stringify({ email, purpose }) }),
+    http<void>("/public/otp/send", {
+      method: "POST",
+      body: JSON.stringify({ email, purpose }),
+    }),
 
   submitRegistration: (payload: Record<string, unknown>) =>
-    http<{ id: string }>("/public/registrations", { method: "POST", body: JSON.stringify(payload) }),
+    http<{ id: string }>("/public/registrations", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
 
   submitPreBooking: (payload: {
     name: string;
@@ -57,12 +64,19 @@ export const api = {
     email: string;
     preferredLocation?: string;
     message?: string;
-  }) => http<{ id: string }>("/public/pre-bookings", { method: "POST", body: JSON.stringify(payload) }),
+  }) =>
+    http<{ id: string }>("/public/pre-bookings", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
 
   uploadFile: async (file: File, folder = "registrations"): Promise<string> => {
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch(`${API_BASE}/public/uploads?folder=${folder}`, { method: "POST", body: form });
+    const res = await fetch(`${API_BASE}/public/uploads?folder=${folder}`, {
+      method: "POST",
+      body: form,
+    });
     if (!res.ok) throw new Error("Upload failed");
     const body = (await res.json()) as { key: string };
     return body.key;
