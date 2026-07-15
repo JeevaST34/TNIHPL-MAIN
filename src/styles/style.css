@@ -103,7 +103,7 @@ section:nth-of-type(even) {
   padding-top: 140px;
   padding-bottom: 120px;
   background:
-    linear-gradient(150deg, rgba(4, 15, 36, 0.97) 0%, rgba(8, 31, 74, 0.92) 45%, rgba(10, 40, 95, 0.88) 75%, rgba(5, 18, 42, 0.96) 100%),
+    linear-gradient(150deg, rgba(4, 15, 36, 0.93) 0%, rgba(8, 31, 74, 0.83) 45%, rgba(10, 40, 95, 0.68) 75%, rgba(5, 18, 42, 0.5) 100%),
     url('/images/image_6.png') center/cover no-repeat;
   color: var(--bg-white);
   /* clip-path: ellipse(108% 100% at 50% 0%); */

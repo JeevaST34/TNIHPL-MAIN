@@ -51,6 +51,20 @@ export default function ResidentLogin() {
             <i className="fa-solid fa-arrow-left"></i> Back To Home
           </Link>
 
+          <div className="login-logo-wrap" style={{ marginBottom: "24px", marginTop: "16px", textAlign: "left" }}>
+            <Link href="/">
+              <img
+                src="/images/logo.png"
+                alt="TNIHPL Logo"
+                style={{
+                  height: "34px",
+                  objectFit: "contain",
+                  filter: "brightness(0) saturate(100%) invert(14%) sepia(52%) saturate(3015%) hue-rotate(204deg) brightness(96%) contrast(98%)"
+                }}
+              />
+            </Link>
+          </div>
+
           <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--accent-color)", marginBottom: "8px" }}>
             RESIDENT PORTAL
           </div>
