@@ -1,0 +1,245 @@
+:root {
+  /* Brand Palette (Homve Theme) */
+  --primary-color: #1252AE;
+  --primary-hover: #0d3d82;
+  --secondary-color: #0C2B5C;
+  --accent-color: #f7a809; /* warm orange/gold */
+  --accent-soft: rgba(247, 168, 9, 0.1);
+  --primary-soft: rgba(18, 82, 174, 0.08);
+
+  /* Status Colors */
+  --color-available: #1252AE;
+  --color-sold-out: #dc3545;
+  --color-coming-soon: #ffc107;
+  
+  /* Neutral Palette */
+  --text-dark: #212529;
+  --text-body: #495057;
+  --text-muted: #6c757d;
+  --bg-light: #f8f9fa;
+  --bg-white: #ffffff;
+  --border-color: #dee2e6;
+  --border-color-light: #e9ecef;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(18, 82, 174, 0.12);
+  --shadow-nav: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  /* Border Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-pill: 50rem;
+
+  /* ─── Font Stack ────────────────────────────────────────────
+     --font-display   → Alan Sans        (Hero h1 display font)
+     --font-heading   → Alan Sans        (h2–h4 section titles)
+     --font-primary   → Alan Sans        (Body text)
+     --font-ui        → Satoshi          (Cards, forms, dashboards)
+     --font-secondary → Switzer          (Nav links, labels, pills)
+  ──────────────────────────────────────────────────────────── */
+  --font-display:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-heading:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-primary:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-ui:        'Satoshi', 'Alan Sans Variable', sans-serif;
+  --font-secondary: 'Switzer', 'Alan Sans Variable', sans-serif;
+
+  /* Typography Scale (Clamp for responsiveness) */
+  --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --font-sm: clamp(0.8125rem, 0.8rem + 0.3vw, 0.875rem);
+  --font-base: clamp(0.875rem, 0.85rem + 0.4vw, 1rem);
+  --font-md: clamp(1rem, 0.95rem + 0.5vw, 1.125rem);
+  --font-lg: clamp(1.125rem, 1.05rem + 0.6vw, 1.25rem);
+  --font-xl: clamp(1.25rem, 1.15rem + 0.8vw, 1.5rem);
+  --font-xxl: clamp(1.5rem, 1.35rem + 1.2vw, 2.25rem);
+  --font-display: clamp(2rem, 1.7rem + 2vw, 3.5rem);
+
+  /* Spacings (Fluid Layout values) */
+  --space-xs: clamp(0.25rem, 0.2rem + 0.2vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 0.4rem + 0.4vw, 0.875rem);
+  --space-md: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  --space-xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+  --space-xxl: clamp(4rem, 3.5rem + 3.5vw, 6rem);
+
+  /* Animations & Transitions */
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-normal: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+:root.dark-theme {
+  --text-dark: #f8fafc;
+  --text-body: #cbd5e1;
+  --text-muted: #94a3b8;
+  --bg-light: #0f172a;
+  --bg-white: #1e293b;
+  --border-color: #334155;
+  --border-color-light: #1e293b;
+  --primary-soft: rgba(30, 41, 59, 0.5);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-nav: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Specific theme adjustment overrides */
+:root.dark-theme body {
+  background-color: var(--bg-light);
+  color: var(--text-body);
+}
+
+:root.dark-theme .section-white,
+:root.dark-theme .stats-bar,
+:root.dark-theme .lc-form-wrap,
+:root.dark-theme .process-card,
+:root.dark-theme .search-sidebar-widget,
+:root.dark-theme .detail-spec-tile,
+:root.dark-theme .price-sidebar-card,
+:root.dark-theme .contact-card-tile,
+:root.dark-theme .login-page-section,
+:root.dark-theme .footer-cta-banner {
+  background-color: var(--bg-white) !important;
+  background: var(--bg-white) !important;
+}
+
+:root.dark-theme .search-widget,
+:root.dark-theme .wizard-card {
+  background-color: var(--bg-white) !important;
+  background: var(--bg-white) !important;
+  border-color: var(--border-color) !important;
+}
+
+:root.dark-theme .filter-select,
+:root.dark-theme .filter-input,
+:root.dark-theme .lc-input,
+:root.dark-theme .form-control,
+:root.dark-theme .wizard-input {
+  background-color: var(--bg-light) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-dark) !important;
+}
+
+:root.dark-theme .filter-select:focus,
+:root.dark-theme .filter-input:focus,
+:root.dark-theme .lc-input:focus,
+:root.dark-theme .form-control:focus,
+:root.dark-theme .wizard-input:focus {
+  background-color: var(--bg-white) !important;
+  border-color: var(--primary-color) !important;
+}
+
+:root.dark-theme .btn-social-login {
+  background-color: var(--bg-light) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-dark) !important;
+}
+
+:root.dark-theme .btn-social-login:hover {
+  background-color: var(--bg-white) !important;
+  border-color: var(--primary-color) !important;
+}
+
+:root.dark-theme .header.scrolled {
+  background-color: var(--bg-white) !important;
+  border-bottom-color: var(--border-color-light) !important;
+}
+
+:root.dark-theme .nav-link {
+  color: var(--text-body);
+}
+
+:root.dark-theme .header.scrolled .nav-logo-text {
+  color: var(--text-dark) !important;
+}
+
+:root.dark-theme .badge-renters-overlap {
+  background: linear-gradient(135deg, var(--primary-color), #093470) !important;
+}
+
+/* Make sure paragraphs and subtext are bright & highly legible in dark mode */
+:root.dark-theme p,
+:root.dark-theme .card-desc,
+:root.dark-theme .hero-desc,
+:root.dark-theme .section-desc {
+  color: #e2e8f0 !important;
+}
+
+/* Ensure process step cards have crisp borders and contrast */
+:root.dark-theme .process-card {
+  border: 1px solid #334155 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+:root.dark-theme .process-card:hover {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Button & CTA contrast overrides for dark mode */
+:root.dark-theme .btn-nav-solid,
+:root.dark-theme .btn-hero-primary,
+:root.dark-theme .btn-lc-send,
+:root.dark-theme .btn-footer-cta,
+:root.dark-theme .btn-signin-submit,
+:root.dark-theme .btn-sidebar-search,
+:root.dark-theme .btn-explore-all,
+:root.dark-theme .btn-book-now-green,
+:root.dark-theme .btn-lc-contact,
+:root.dark-theme .btn-wizard-next,
+:root.dark-theme .btn-search {
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%) !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+  color: #ffffff !important;
+}
+
+:root.dark-theme .btn-nav-outline,
+:root.dark-theme .btn-wizard-back {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  color: #ffffff !important;
+}
+
+:root.dark-theme .btn-nav-outline:hover,
+:root.dark-theme .btn-wizard-back:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Ensure maps look premium and clean in dark mode */
+:root.dark-theme iframe[src*="google.com/maps"] {
+  filter: invert(90%) hue-rotate(180deg) grayscale(10%);
+}
+
+/* Dark mode contrast fixes for stats, footer cta, and amenities */
+:root.dark-theme .stat-number {
+  color: #ffffff !important;
+}
+
+:root.dark-theme .footer-cta-title {
+  color: var(--text-dark) !important;
+}
+
+:root.dark-theme .amenity-icon {
+  color: var(--accent-color) !important;
+}
+
+/* Dark mode contrast fixes for login page and details page sidebar */
+:root.dark-theme .login-title {
+  color: var(--text-dark) !important;
+}
+
+:root.dark-theme .forgot-link,
+:root.dark-theme .login-register-footer a {
+  color: #3b82f6 !important;
+}
+
+:root.dark-theme .forgot-link:hover,
+:root.dark-theme .login-register-footer a:hover {
+  color: #60a5fa !important;
+}
+
+:root.dark-theme .price-sidebar-val {
+  color: var(--accent-color) !important;
+}

@@ -1,0 +1,657 @@
+/* responsive.css */
+
+/* ============================================================
+   Global Overflow & Layout Boundaries
+   ============================================================ */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
+
+/* ============================================================
+   1440px — Wide Desktop
+   ============================================================ */
+@media (max-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* ============================================================
+   1280px — Standard Desktop
+   ============================================================ */
+@media (max-width: 1280px) {
+  .container {
+    max-width: 1100px;
+  }
+}
+
+/* ============================================================
+   1024px — Laptop / Large Tablet
+   ============================================================ */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+
+  .nav-menu {
+    gap: 20px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    gap: 28px;
+  }
+
+  .two-col-grid {
+    gap: 40px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+/* ============================================================
+   992px — Tablet Breakpoint (Navigation Drawer & Tablet Layouts)
+   ============================================================ */
+@media (max-width: 992px) {
+  .container {
+    max-width: 720px;
+  }
+
+  /* Navigation Drawer Trigger */
+  .nav-menu,
+  .nav-actions {
+    display: none !important;
+  }
+
+  .mobile-nav-toggle-wrap {
+    display: flex !important;
+  }
+
+  .nav-toggle {
+    display: flex !important;
+  }
+
+  .nav-theme-toggle {
+    display: flex !important;
+    color: var(--bg-white);
+  }
+
+  .header.scrolled .nav-theme-toggle {
+    color: var(--text-dark);
+  }
+
+  /* Search Widget Grid */
+  .search-form-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+
+  .btn-search {
+    grid-column: span 2 !important;
+    width: 100% !important;
+  }
+
+  /* Footer Layout */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Services Grid — 2 columns on tablet */
+  .services-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* Amenities Grid — 2 columns on tablet */
+  .amenities-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  /* Let's Connect Grid — stack form above info card */
+  .lets-connect-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .lc-info-card {
+    min-height: 240px;
+  }
+
+  /* Details Page Layout */
+  .details-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* How It Works Steps */
+  .steps-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+  }
+
+  .step-card {
+    flex: 1 1 calc(50% - 10px) !important;
+    min-width: 200px;
+  }
+
+  .step-connector {
+    display: none !important;
+  }
+
+  /* Listings Layout & Sidebar */
+  .listings-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Counter Grid 4 */
+  .counter-grid-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  /* About Page - Overlapping Grid on Tablet */
+  .overlap-image-grid {
+    min-height: 360px;
+  }
+
+  .overlap-img-main {
+    width: 88%;
+    height: 300px;
+  }
+
+  .overlap-img-sub {
+    width: 48%;
+    height: 180px;
+  }
+
+  .badge-renters-overlap {
+    right: 2%;
+    padding: 12px 18px;
+  }
+
+  .badge-renters-val {
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================================
+   768px — Mobile Large / Portrait Tablet
+   ============================================================ */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100% !important;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+  }
+
+  /* --- Hero Section --- */
+  .hero {
+    min-height: auto !important;
+    padding-top: 105px !important;
+    padding-bottom: 50px !important;
+    text-align: center !important;
+    clip-path: none !important;
+  }
+
+  .hero-content {
+    max-width: 100% !important;
+    margin-bottom: 32px !important;
+  }
+
+  .hero-desc {
+    max-width: 100% !important;
+    font-size: 1rem !important;
+  }
+
+  .hero-cta-row,
+  .hero-social-proof {
+    justify-content: center !important;
+  }
+
+  /* --- Search Widget --- */
+  .search-widget {
+    padding: 20px !important;
+    margin-top: 24px !important;
+  }
+
+  .search-tabs {
+    overflow-x: auto !important;
+    padding-bottom: 6px !important;
+    justify-content: flex-start !important;
+  }
+
+  .search-tab-btn {
+    white-space: nowrap !important;
+    padding: 8px 16px !important;
+  }
+
+  /* --- Two-column Section Stacking --- */
+  .two-col-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .two-col-reverse {
+    direction: ltr !important;
+  }
+
+  .two-col-img .img-rounded {
+    height: 280px !important;
+  }
+
+  /* --- Property Grid --- */
+  .property-grid,
+  .listings-property-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* --- How It Works Steps --- */
+  .steps-grid {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .step-card {
+    flex: 1 1 100% !important;
+    padding: 28px 20px !important;
+  }
+
+  /* --- Stats Bar (Fixes Image 1 & Image 3 number overlapping) --- */
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 24px 0 !important;
+    gap: 20px 16px !important;
+    align-items: center !important;
+  }
+
+  .stat-divider {
+    display: none !important;
+  }
+
+  .stat-item {
+    width: 100% !important;
+    flex: none !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    text-align: center !important;
+  }
+
+  .stat-number {
+    font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .stat-label {
+    font-size: 0.75rem !important;
+  }
+
+  /* --- About Page Overlap Grid Fix --- */
+  .overlap-image-grid {
+    min-height: auto !important;
+    height: auto !important;
+    padding-bottom: 0 !important;
+    position: relative !important;
+  }
+
+  .overlap-img-main {
+    width: 100% !important;
+    height: 250px !important;
+    border-radius: 16px !important;
+  }
+
+  .overlap-img-sub {
+    position: relative !important;
+    width: 70% !important;
+    height: 140px !important;
+    margin-top: -60px !important;
+    margin-left: 20px !important;
+    border-width: 4px !important;
+    border-radius: 14px !important;
+  }
+
+  .badge-renters-overlap {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    margin-top: 12px !important;
+    display: inline-flex !important;
+    border-radius: 12px !important;
+    padding: 12px 20px !important;
+  }
+
+  /* --- Process Grid & Counter Grid --- */
+  .process-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .process-card {
+    padding: 28px 20px !important;
+  }
+
+  .counter-grid-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .counter-num-white {
+    font-size: clamp(1.5rem, 5vw, 2.2rem) !important;
+  }
+
+  /* --- Detail Page Specs & Gallery --- */
+  .detail-specs-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .detail-gallery-main {
+    height: 300px !important;
+  }
+
+  /* --- Page Hero & Breadcrumbs Banner --- */
+  .page-hero-banner,
+  .breadcrumbs-header {
+    padding: 110px 0 45px !important;
+  }
+
+  .page-hero-title,
+  .breadcrumbs-title {
+    font-size: 2.1rem !important;
+  }
+
+  /* --- Let's Connect Form Row Stacking (Fixes Image 5) --- */
+  .lc-form-wrap {
+    padding: 24px 20px !important;
+  }
+
+  .lc-form-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* --- Booking Wizard --- */
+  .wizard-card {
+    padding: 24px 18px !important;
+  }
+
+  .wizard-steps::before {
+    display: none !important;
+  }
+
+  .wizard-steps {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .wizard-step {
+    flex: none !important;
+    width: calc(50% - 4px) !important;
+    flex-direction: row !important;
+    background-color: var(--bg-light);
+    padding: 10px 12px !important;
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--border-color-light) !important;
+  }
+
+  .wizard-step.active {
+    background-color: var(--primary-soft);
+    border-color: var(--primary-color);
+  }
+
+  .step-label {
+    font-size: 0.72rem !important;
+  }
+
+  .form-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .form-group-full {
+    grid-column: span 1 !important;
+  }
+
+  /* --- Footer Components --- */
+  .footer-cta-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+}
+
+/* ============================================================
+   576px — Mobile Standard (Phones - Fixes Image 2, Image 4 & Image 5)
+   ============================================================ */
+@media (max-width: 576px) {
+  .container {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
+
+  /* Search Form */
+  .search-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn-search {
+    grid-column: span 1 !important;
+  }
+
+  /* Single Column Grids for Mobile */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* Services Grid (Fixes Image 2) */
+  .services-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Amenities Grid (Fixes Image 4) */
+  .amenities-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .amenity-tile {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .process-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .social-login-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Buttons & Typography */
+  .btn-lc-send {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 7.5vw, 2.5rem) !important;
+  }
+
+  .hero-pill {
+    padding: 6px 14px !important;
+    font-size: 0.7rem !important;
+  }
+
+  /* Contact Tile Padding */
+  .contact-card-tile {
+    padding: 16px !important;
+    gap: 14px !important;
+  }
+
+  .contact-tile-icon {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 1.1rem !important;
+  }
+
+  /* About Page Overlap Sub Image */
+  .overlap-img-sub {
+    width: 80% !important;
+    margin-top: -50px !important;
+    margin-left: 10px !important;
+  }
+}
+
+/* ============================================================
+   480px — Small Mobile Screens
+   ============================================================ */
+@media (max-width: 480px) {
+  .header,
+  .navbar {
+    height: 66px !important;
+  }
+
+  .header.scrolled .navbar {
+    height: 62px !important;
+  }
+
+  .wizard-step {
+    width: 100% !important;
+  }
+
+  .wizard-footer {
+    flex-direction: column-reverse !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  .btn-wizard-next,
+  .btn-wizard-back {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* Stats Bar 2x2 on small mobile */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px 10px !important;
+  }
+
+  .stat-item {
+    width: 100% !important;
+  }
+
+  .counter-grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .counter-box-translucent {
+    padding: 18px 10px !important;
+  }
+
+  .counter-num-white {
+    font-size: 1.7rem !important;
+  }
+
+  .detail-specs-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page-hero-title {
+    font-size: 1.75rem !important;
+  }
+
+  .testimonial-card {
+    padding: 24px 16px !important;
+  }
+
+  .testimonial-text {
+    font-size: 0.9375rem !important;
+  }
+
+  .footer-cta-title {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* ============================================================
+   360px — Compact Screens
+   ============================================================ */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.65rem !important;
+  }
+
+  .search-tab-btn {
+    padding: 6px 12px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .stats-grid,
+  .counter-grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-ghost {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .hero-cta-row {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+}

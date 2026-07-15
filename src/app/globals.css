@@ -1,0 +1,70 @@
+/* ─── External Font Imports ─── */
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css";
+
+/* Alan Sans — Modern geometric typeface for headlines, titles, and brand text */
+@import "https://cdn.jsdelivr.net/npm/@fontsource-variable/alan-sans/index.css";
+
+/* Satoshi — UI elements, cards, forms, dashboards */
+@import "https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap";
+
+/* Switzer — navbar links, labels, pills, badges */
+@import "https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap";
+
+@import "../styles/variables.css";
+@import "../styles/reset.css";
+@import "../styles/typography.css";
+@import "../styles/utilities.css";
+@import "../styles/components.css";
+@import "../styles/animations.css";
+@import "../styles/responsive.css";
+@import "../styles/portal.css";
+@import "../styles/style.css";
+@import "tailwindcss";
+
+/* ── Design System Tokens ── */
+@theme {
+  --color-cream: #f8f7ff;
+  --color-cream-alt: #f0eeff;
+  --color-surface: #ffffff;
+  --color-gold: #1252AE;
+  --color-gold-light: #3b82f6;
+  --color-gold-deep: #0C2B5C;
+  --color-gold-soft: rgba(18, 82, 174, 0.08);
+  --color-heading: #0C2B5C;
+  --color-body: #3d4a5c;
+  --color-muted: #6b7a90;
+  --color-line: #e4e9f0;
+  --color-rating: #f7a809;
+  --color-success: #2e7d5b;
+  --color-success-soft: #e7f3ec;
+  --color-danger: #dc3545;
+  --color-danger-soft: #fbece7;
+
+  /* ─── Font Stack ──────────────────────────────────────────────
+     --font-display   → Alan Sans        (Hero h1 display font)
+     --font-heading   → Alan Sans        (h2–h4 section titles)
+     --font-primary   → Alan Sans        (Body text)
+     --font-ui        → Satoshi          (Cards, forms, dashboards)
+     --font-secondary → Switzer          (Navbar, pills, badges)
+  ─────────────────────────────────────────────────────────────── */
+  --font-display:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-heading:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-primary:   'Alan Sans Variable', 'Alan Sans', sans-serif;
+  --font-ui:        'Satoshi', 'Alan Sans Variable', sans-serif;
+  --font-secondary: 'Switzer', 'Alan Sans Variable', sans-serif;
+
+  --shadow-soft: 0 2px 12px rgba(12, 43, 92, 0.06);
+  --shadow-lift: 0 12px 40px rgba(18, 82, 174, 0.14);
+  --shadow-card: 0 4px 24px rgba(12, 43, 92, 0.08);
+  --shadow-glow: 0 0 40px rgba(18, 82, 174, 0.15);
+}
+
+/* ── Global base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(18, 82, 174, 0.18);
+  color: #0c2b5c;
+}
