@@ -57,7 +57,7 @@ export default function ResidentLogin() {
           />
           <div className="login-visual-overlay" />
 
-          {/* Bottom Headline & Carousel Indicators inside Left Card */}
+          {/* Bottom headline for the single image */}
           <div className="login-visual-bottom">
             <h2 className="login-visual-title">
               Comfortable, Secure &amp; Active Student Living
@@ -66,13 +66,6 @@ export default function ResidentLogin() {
               Verified hostel stays across Tamil Nadu. Access your portal to
               manage stay, bills &amp; service requests.
             </p>
-
-            {/* Slide Indicators */}
-            <div className="login-dots">
-              <span className="login-dot-active"></span>
-              <span className="login-dot"></span>
-              <span className="login-dot"></span>
-            </div>
           </div>
         </div>
 
