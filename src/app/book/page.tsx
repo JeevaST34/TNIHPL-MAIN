@@ -137,15 +137,19 @@ export default function BookPage() {
               </span>
               <h1 className="breadcrumbs-title">Book a Stay</h1>
               <p className="hero-subtitle-text">
-                Reserve your bed in minutes with transparent pricing &amp; zero hidden fees.
+                Reserve your bed in minutes with transparent pricing &amp; zero
+                hidden fees.
               </p>
               <div className="hero-actions-row">
                 <a href="#booking-form" className="hero-btn-primary">
-                  <i className="fa-solid fa-file-pen text-primary"></i> Fill Registration Form
+                  <i className="fa-solid fa-file-pen text-primary"></i> Fill
+                  Registration Form
                 </a>
                 <div className="hero-ratings-pill">
                   <i className="fa-solid fa-bolt text-amber-500"></i>
-                  <span><strong>Instant Confirmation</strong></span>
+                  <span>
+                    <strong>Instant Confirmation</strong>
+                  </span>
                 </div>
               </div>
             </div>
@@ -160,10 +164,12 @@ export default function BookPage() {
                 />
               </div>
               <div className="floating-hero-badge badge-top">
-                <i className="fa-solid fa-bolt text-amber-500 mr-1"></i> Instant Allotment Check
+                <i className="fa-solid fa-bolt text-amber-500 mr-1"></i> Instant
+                Allotment Check
               </div>
               <div className="floating-hero-badge badge-bottom">
-                <i className="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Transparent Pricing
+                <i className="fa-solid fa-circle-check text-emerald-500 mr-1"></i>{" "}
+                Transparent Pricing
               </div>
             </div>
           </div>
@@ -177,9 +183,13 @@ export default function BookPage() {
               <div className="w-16 h-16 mx-auto flex items-center justify-center rounded-full bg-emerald-100 text-emerald-600 text-3xl mb-4">
                 <i className="fa-solid fa-circle-check"></i>
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-2">Booking Request Submitted!</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">
+                Booking Request Submitted!
+              </h2>
               <p className="text-slate-600 mb-4">
-                Thank you, <strong>{details.name}</strong>. Our team will review your application and send the confirmation email to <strong>{details.email}</strong>.
+                Thank you, <strong>{details.name}</strong>. Our team will review
+                your application and send the confirmation email to{" "}
+                <strong>{details.email}</strong>.
               </p>
               <p className="text-xs font-mono text-slate-500 mb-6 bg-slate-100 py-2 px-4 rounded-lg inline-block">
                 Reference ID: {doneId}
@@ -214,7 +224,9 @@ export default function BookPage() {
                   {/* Step 1: Your details */}
                   {step === 0 && (
                     <div className="wizard-pane active">
-                      <h3 className="text-xl font-bold mb-4">Enter Personal Details</h3>
+                      <h3 className="text-xl font-bold mb-4">
+                        Enter Personal Details
+                      </h3>
                       <div className="form-grid">
                         <div className="search-group">
                           <label className="form-label">Full Name *</label>
@@ -267,11 +279,15 @@ export default function BookPage() {
                           <select
                             className="form-control"
                             value={details.residentType}
-                            onChange={(e) => setField("residentType", e.target.value)}
+                            onChange={(e) =>
+                              setField("residentType", e.target.value)
+                            }
                           >
                             <option value="Individual">Individual</option>
                             <option value="Student">Student</option>
-                            <option value="Working professional">Working professional</option>
+                            <option value="Working professional">
+                              Working professional
+                            </option>
                           </select>
                         </div>
 
@@ -280,7 +296,9 @@ export default function BookPage() {
                           <select
                             className="form-control"
                             value={details.typeOfStay}
-                            onChange={(e) => setField("typeOfStay", e.target.value)}
+                            onChange={(e) =>
+                              setField("typeOfStay", e.target.value)
+                            }
                           >
                             <option value="Monthly">Monthly</option>
                             <option value="Short stay">Short stay</option>
@@ -289,13 +307,17 @@ export default function BookPage() {
                         </div>
 
                         <div className="search-group form-group-full">
-                          <label className="form-label">Permanent Address</label>
+                          <label className="form-label">
+                            Permanent Address
+                          </label>
                           <textarea
                             className="form-control"
                             rows={3}
                             placeholder="123 Street Address, City, Pincode"
                             value={details.permanentAddress}
-                            onChange={(e) => setField("permanentAddress", e.target.value)}
+                            onChange={(e) =>
+                              setField("permanentAddress", e.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -305,9 +327,12 @@ export default function BookPage() {
                   {/* Step 2: Documents */}
                   {step === 1 && (
                     <div className="wizard-pane active">
-                      <h3 className="text-xl font-bold mb-2">Upload Identification Documents</h3>
+                      <h3 className="text-xl font-bold mb-2">
+                        Upload Identification Documents
+                      </h3>
                       <p className="text-sm text-slate-500 mb-6">
-                        Please upload the following files (optional, but speeds up verification and allotment checks). JPG, PNG or PDF.
+                        Please upload the following files (optional, but speeds
+                        up verification and allotment checks). JPG, PNG or PDF.
                       </p>
 
                       <div className="form-grid">
@@ -339,13 +364,17 @@ export default function BookPage() {
                   {/* Step 3: Choose hostel */}
                   {step === 2 && (
                     <div className="wizard-pane active">
-                      <h3 className="text-xl font-bold mb-2">Select Your Preferred Hostel</h3>
+                      <h3 className="text-xl font-bold mb-2">
+                        Select Your Preferred Hostel
+                      </h3>
                       <p className="text-sm text-slate-500 mb-6">
                         Choose from our available properties across Tamil Nadu.
                       </p>
 
                       <div className="search-group">
-                        <label className="form-label">Hostel Location &amp; Name *</label>
+                        <label className="form-label">
+                          Hostel Location &amp; Name *
+                        </label>
                         <select
                           className="form-control"
                           value={hostelId}
@@ -354,32 +383,38 @@ export default function BookPage() {
                           <option value="">— Select a Hostel —</option>
                           {hostels.map((h) => (
                             <option key={h.id} value={h.id}>
-                              {h.name} {h.locationName ? `(${h.locationName})` : ""}
+                              {h.name}{" "}
+                              {h.locationName ? `(${h.locationName})` : ""}
                             </option>
                           ))}
                         </select>
                       </div>
 
-                      {hostels.length === 0 && (
-                        hostelsError ? (
+                      {hostels.length === 0 &&
+                        (hostelsError ? (
                           <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm mt-4">
-                            Couldn&apos;t load hostels list right now. Please refresh or submit enquiry.
+                            Couldn&apos;t load hostels list right now. Please
+                            refresh or submit enquiry.
                           </div>
                         ) : (
                           <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-sm mt-4">
-                            No hostels listed. Please send an enquiry via our contact form.
+                            No hostels listed. Please send an enquiry via our
+                            contact form.
                           </div>
-                        )
-                      )}
+                        ))}
                     </div>
                   )}
 
                   {/* Step 4: Verify & submit */}
                   {step === 3 && (
                     <div className="wizard-pane active max-w-lg mx-auto text-center">
-                      <h3 className="text-xl font-bold mb-2">Verify Your Email</h3>
+                      <h3 className="text-xl font-bold mb-2">
+                        Verify Your Email
+                      </h3>
                       <p className="text-sm text-slate-600 mb-6">
-                        We will send a 6-digit code to <strong>{details.email}</strong> to verify your identity before final submission.
+                        We will send a 6-digit code to{" "}
+                        <strong>{details.email}</strong> to verify your identity
+                        before final submission.
                       </p>
 
                       {!otpSent ? (
@@ -395,7 +430,9 @@ export default function BookPage() {
                       ) : (
                         <div className="space-y-4">
                           <div className="search-group text-left">
-                            <label className="form-label">6-Digit Verification Code</label>
+                            <label className="form-label">
+                              6-Digit Verification Code
+                            </label>
                             <input
                               type="text"
                               maxLength={6}
@@ -433,7 +470,11 @@ export default function BookPage() {
                       onClick={() => setStep((s) => Math.max(0, s - 1))}
                       disabled={step === 0}
                     >
-                      <i className="fa-solid fa-arrow-left" style={{ fontSize: "0.85rem" }}></i> Back
+                      <i
+                        className="fa-solid fa-arrow-left"
+                        style={{ fontSize: "0.85rem" }}
+                      ></i>{" "}
+                      Back
                     </button>
 
                     {step < 3 ? (
@@ -443,7 +484,11 @@ export default function BookPage() {
                         onClick={() => setStep((s) => s + 1)}
                         disabled={!canNext}
                       >
-                        Continue <i className="fa-solid fa-arrow-right" style={{ fontSize: "0.85rem" }}></i>
+                        Continue{" "}
+                        <i
+                          className="fa-solid fa-arrow-right"
+                          style={{ fontSize: "0.85rem" }}
+                        ></i>
                       </button>
                     ) : (
                       <button
@@ -452,7 +497,9 @@ export default function BookPage() {
                         onClick={submit}
                         disabled={busy || !otpSent || code.length !== 6}
                       >
-                        {busy ? "Submitting Application…" : "Complete Registration"}
+                        {busy
+                          ? "Submitting Application…"
+                          : "Complete Registration"}
                       </button>
                     )}
                   </div>
@@ -482,7 +529,9 @@ function UploadBox({
   return (
     <div className="search-group">
       <label className="form-label">{label}</label>
-      <div className={`upload-drag-area ${done ? "border-emerald-500 bg-emerald-50" : ""}`}>
+      <div
+        className={`upload-drag-area ${done ? "border-emerald-500 bg-emerald-50" : ""}`}
+      >
         <span className="upload-icon">{done ? "✅" : "📁"}</span>
         <p className="text-xs text-slate-500 mb-1">
           {sublabel ?? "Upload file"}

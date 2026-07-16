@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const links = [
@@ -24,7 +25,12 @@ export default function Navbar() {
     }
 
     const handleScroll = () => {
-      const scrollPos = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const scrollPos =
+        window.scrollY ||
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;
       if (scrollPos > 30) {
         setScrolled(true);
       } else {
@@ -50,6 +56,8 @@ export default function Navbar() {
     }
   };
 
+  const pathname = usePathname();
+
   return (
     <>
       {/* 1. TOP BAR STRIP */}
@@ -74,26 +82,35 @@ export default function Navbar() {
       </div> */}
 
       {/* 2. NAVBAR */}
-      <header className={`header ${scrolled ? "scrolled" : ""}`} id="site-header">
+      <header
+        className={`header ${scrolled ? "scrolled" : ""}`}
+        id="site-header"
+      >
         <div className="container">
           <nav className="navbar">
             <Link href="/" className="nav-brand">
-              <img src="/images/logo.png" className="nav-logo-img" alt="TNIHPL Logo" />
+              <img
+                src="/images/logo.png"
+                className="nav-logo-img"
+                alt="TNIHPL Logo"
+              />
             </Link>
 
-            <ul className={`nav-menu ${mobileOpen ? "active" : ""}`}>
-              {links.map((l) => (
-                <li key={l.href} className="nav-item">
-                  <a
-                    href={l.href}
-                    className="nav-link"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {pathname !== "/book" && (
+              <ul className={`nav-menu ${mobileOpen ? "active" : ""}`}>
+                {links.map((l) => (
+                  <li key={l.href} className="nav-item">
+                    <a
+                      href={l.href}
+                      className="nav-link"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <div className="nav-actions">
               <button
@@ -101,7 +118,9 @@ export default function Navbar() {
                 className="theme-toggle-btn"
                 aria-label="Toggle dark mode"
               >
-                <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
+                <i
+                  className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}
+                ></i>
               </button>
               <Link href="/portal/login" className="btn-nav-outline">
                 Resident Login
@@ -118,7 +137,9 @@ export default function Navbar() {
                 className="theme-toggle-btn nav-theme-toggle"
                 aria-label="Toggle dark mode"
               >
-                <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
+                <i
+                  className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}
+                ></i>
               </button>
               <div
                 className={`nav-toggle ${mobileOpen ? "active" : ""}`}
@@ -134,11 +155,19 @@ export default function Navbar() {
       </header>
 
       {/* Mobile Navigation Drawer */}
-      <div className={`drawer-overlay ${mobileOpen ? "active" : ""}`} onClick={() => setMobileOpen(false)}></div>
+      <div
+        className={`drawer-overlay ${mobileOpen ? "active" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      ></div>
       <div className={`mobile-drawer ${mobileOpen ? "open" : ""}`}>
         <div className="drawer-header">
           <div className="drawer-logo">
-            <img src="/images/logo.png" className="nav-logo-img" alt="TNIHPL Logo" style={{ height: "32px" }} />
+            <img
+              src="/images/logo.png"
+              className="nav-logo-img"
+              alt="TNIHPL Logo"
+              style={{ height: "32px" }}
+            />
           </div>
           <div className="drawer-close" onClick={() => setMobileOpen(false)}>
             <i className="fa-solid fa-xmark"></i>
@@ -147,17 +176,30 @@ export default function Navbar() {
 
         <div className="drawer-menu">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="drawer-link" onClick={() => setMobileOpen(false)}>
+            <a
+              key={l.href}
+              href={l.href}
+              className="drawer-link"
+              onClick={() => setMobileOpen(false)}
+            >
               {l.label}
             </a>
           ))}
         </div>
 
         <div className="drawer-actions">
-          <Link href="/portal/login" className="btn-nav-outline text-center" onClick={() => setMobileOpen(false)}>
+          <Link
+            href="/portal/login"
+            className="btn-nav-outline text-center"
+            onClick={() => setMobileOpen(false)}
+          >
             Resident Login
           </Link>
-          <Link href="/book" className="btn-nav-solid text-center" onClick={() => setMobileOpen(false)}>
+          <Link
+            href="/book"
+            className="btn-nav-solid text-center"
+            onClick={() => setMobileOpen(false)}
+          >
             Book a stay
           </Link>
         </div>
