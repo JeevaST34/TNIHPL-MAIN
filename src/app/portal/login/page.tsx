@@ -72,15 +72,8 @@ export default function ResidentLogin() {
         {/* RIGHT PANEL: Form Area with Logo & Back Navigation */}
         <div className="login-form-area">
           <div className="login-form-box">
-            {/* Top Header Bar: Swapped order - Back Navigation on Left, Logo on Right */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "32px",
-              }}
-            >
+            {/* Back navigation and logo */}
+            <div className="login-form-header">
               <Link href="/" className="login-btn-back">
                 <i
                   className="fa-solid fa-arrow-left"
@@ -91,17 +84,11 @@ export default function ResidentLogin() {
 
               <Link
                 href="/"
-                className="inline-block transition-transform hover:scale-105"
+                className="login-form-logo transition-transform hover:scale-105"
               >
                 <img
                   src="/images/logo.png"
                   alt="TNIHPL Logo"
-                  style={{
-                    height: "38px",
-                    width: "auto",
-                    objectFit: "contain",
-                    filter: "none",
-                  }}
                 />
               </Link>
             </div>

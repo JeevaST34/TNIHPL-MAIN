@@ -252,18 +252,18 @@
   transform: translateY(-2px);
 }
 
-/* Drawer-specific button overrides — white background context */
+/* Drawer-specific button overrides */
 .mobile-drawer .btn-nav-outline {
-  border-color: var(--border-color) !important;
-  color: var(--text-dark) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: #ffffff !important;
   background: transparent !important;
   width: 100%;
 }
 
 .mobile-drawer .btn-nav-outline:hover {
-  background-color: var(--bg-light) !important;
-  border-color: var(--primary-color) !important;
-  color: var(--primary-color) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 .mobile-drawer .btn-nav-solid {
@@ -985,7 +985,7 @@ textarea.form-control {
   right: -300px;
   width: 300px;
   height: 100vh;
-  background-color: var(--bg-white);
+  background-color: #1e293b;
   z-index: 2000;
   box-shadow: var(--shadow-lg);
   padding: 30px;
@@ -1028,7 +1028,7 @@ textarea.form-control {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--secondary-color);
+  color: #ffffff;
 }
 
 .drawer-logo span {
@@ -1038,7 +1038,7 @@ textarea.form-control {
 .drawer-close {
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--text-muted);
+  color: #ffffff;
   transition: var(--transition-fast);
 }
 
@@ -1056,14 +1056,14 @@ textarea.form-control {
   font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-dark);
+  color: #ffffff;
   text-decoration: none;
   transition: var(--transition-fast);
 }
 
 .drawer-link:hover,
 .drawer-link.active {
-  color: var(--primary-color);
+  color: #93c5fd;
 }
 
 .drawer-actions {
@@ -1250,6 +1250,29 @@ textarea.form-control {
 .login-btn-back:hover {
   background: rgba(255, 255, 255, 0.3);
   color: #ffffff !important;
+}
+
+.login-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.login-form-logo {
+  display: inline-flex;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.login-form-logo img {
+  display: block;
+  width: auto;
+  height: 38px;
+  max-width: 100%;
+  object-fit: contain;
+  filter: none;
 }
 
 .login-form-area {
