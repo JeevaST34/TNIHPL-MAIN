@@ -1,14 +1,6 @@
 /* ─── External Font Imports ─── */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css";
-
-/* Alan Sans — Modern geometric typeface for headlines, titles, and brand text */
-@import "https://cdn.jsdelivr.net/npm/@fontsource-variable/alan-sans/index.css";
-
-/* Satoshi — UI elements, cards, forms, dashboards */
-@import "https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap";
-
-/* Switzer — navbar links, labels, pills, badges */
-@import "https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap";
 
 @import "../styles/variables.css";
 @import "../styles/reset.css";
@@ -40,18 +32,12 @@
   --color-danger: #dc3545;
   --color-danger-soft: #fbece7;
 
-  /* ─── Font Stack ──────────────────────────────────────────────
-     --font-display   → Alan Sans        (Hero h1 display font)
-     --font-heading   → Alan Sans        (h2–h4 section titles)
-     --font-primary   → Alan Sans        (Body text)
-     --font-ui        → Satoshi          (Cards, forms, dashboards)
-     --font-secondary → Switzer          (Navbar, pills, badges)
-  ─────────────────────────────────────────────────────────────── */
-  --font-display:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-heading:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-primary:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-ui:        'Satoshi', 'Alan Sans Variable', sans-serif;
-  --font-secondary: 'Switzer', 'Alan Sans Variable', sans-serif;
+  /* ─── Font Stack ─── */
+  --font-display:   'Poppins', sans-serif;
+  --font-heading:   'Poppins', sans-serif;
+  --font-primary:   'Poppins', sans-serif;
+  --font-ui:        'Poppins', sans-serif;
+  --font-secondary: 'Poppins', sans-serif;
 
   --shadow-soft: 0 2px 12px rgba(12, 43, 92, 0.06);
   --shadow-lift: 0 12px 40px rgba(18, 82, 174, 0.14);

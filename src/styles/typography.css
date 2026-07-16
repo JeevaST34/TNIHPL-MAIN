@@ -1,4 +1,4 @@
-/* typography.css — Alan Sans (headings & body) · Satoshi (UI elements) · Switzer (navigation) */
+/* typography.css — Lato font typography rules */
 body {
   font-family: var(--font-primary);
   font-size: var(--font-base);

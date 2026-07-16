@@ -36,7 +36,7 @@ function Stars({ value, onChange }: { value: number; onChange: (n: number) => vo
             padding: 0,
             cursor: "pointer",
             fontSize: "1.25rem",
-            color: n <= value ? "var(--color-rating)" : "var(--border-color)"
+            color: n <= value ? "var(--color-rating)" : "var(--text-muted)"
           }}
           aria-label={`${n} star`}
         >
@@ -220,7 +220,7 @@ export default function ProfilePage() {
                       onChange={(e) => setFood({ ...food, foodOpted: e.target.checked })}
                       style={{ width: "18px", height: "18px", accentColor: "var(--primary-color)", cursor: "pointer" }}
                     />
-                    <span style={{ fontWeight: 600, color: "var(--secondary-color)", fontSize: "var(--font-sm)" }}>I would like daily meals provided</span>
+                    <span style={{ fontWeight: 600, color: "var(--text-dark)", fontSize: "var(--font-sm)" }}>I would like daily meals provided</span>
                   </label>
 
                   {food.foodOpted && (
@@ -267,7 +267,7 @@ export default function ProfilePage() {
                   {docs.map((d) => (
                     <div key={d.kind} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "16px", padding: "16px 20px", background: "var(--bg-light)", border: "1px solid var(--border-color-light)", borderRadius: "var(--radius-sm)" }}>
                       <div>
-                        <div style={{ fontWeight: 700, color: "var(--secondary-color)", fontSize: "var(--font-sm)" }}>{d.label}</div>
+                        <div style={{ fontWeight: 700, color: "var(--text-dark)", fontSize: "var(--font-sm)" }}>{d.label}</div>
                         <div style={{ fontSize: "var(--font-xs)", color: d.onFile ? "var(--color-available)" : "var(--text-muted)", fontWeight: 500, marginTop: "2px" }}>
                           {d.onFile ? "✓ File on record" : "Not uploaded yet"}
                         </div>
@@ -277,7 +277,7 @@ export default function ProfilePage() {
                           <button
                             onClick={() => view(d.kind)}
                             className="btn-portal-submit"
-                            style={{ margin: 0, padding: "8px 16px", fontSize: "var(--font-xs)", background: "transparent", color: "var(--secondary-color)", border: "1px solid var(--border-color)" }}
+                            style={{ margin: 0, padding: "8px 16px", fontSize: "var(--font-xs)", background: "transparent", color: "var(--text-dark)", border: "1px solid var(--border-color)" }}
                           >
                             View Document
                           </button>
@@ -313,7 +313,7 @@ export default function ProfilePage() {
                   <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "480px", marginBottom: "20px" }}>
                     {RATING_FIELDS.map((f) => (
                       <div key={f.key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 20px", background: "var(--bg-light)", border: "1px solid var(--border-color-light)", borderRadius: "var(--radius-sm)" }}>
-                        <span style={{ fontSize: "var(--font-sm)", fontWeight: 600, color: "var(--secondary-color)" }}>{f.label}</span>
+                        <span style={{ fontSize: "var(--font-sm)", fontWeight: 600, color: "var(--text-dark)" }}>{f.label}</span>
                         <Stars value={ratings[f.key]} onChange={(n) => setRatings({ ...ratings, [f.key]: n })} />
                       </div>
                     ))}
@@ -351,7 +351,7 @@ export default function ProfilePage() {
                     <button type="submit" disabled={reviewSaving || !reviewText.trim()} className="btn-portal-submit" style={{ margin: 0 }}>
                       <i className="fa-solid fa-paper-plane"></i> {reviewSaving ? "Submitting…" : "Submit Review"}
                     </button>
-                    {reviewMsg && <span style={{ fontSize: "var(--font-sm)", fontWeight: 600, color: "var(--color-available)" }}>{reviewMsg}</span>}
+                    {feedbackMsg && <span style={{ fontSize: "var(--font-sm)", fontWeight: 600, color: "var(--color-available)" }}>{feedbackMsg}</span>}
                   </div>
 
                   {reviews.length > 0 && (
@@ -360,7 +360,7 @@ export default function ProfilePage() {
                       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                         {reviews.map((r) => (
                           <div key={r.id} style={{ padding: "16px", background: "var(--bg-light)", border: "1px solid var(--border-color-light)", borderRadius: "var(--radius-sm)" }}>
-                            <p style={{ fontSize: "var(--font-sm)", fontWeight: 500, color: "var(--secondary-color)", margin: 0 }}>{r.reviewText}</p>
+                            <p style={{ fontSize: "var(--font-sm)", fontWeight: 500, color: "var(--text-dark)", margin: 0 }}>{r.reviewText}</p>
                             <p style={{ fontSize: "var(--font-xs)", color: r.showOnWebsite ? "var(--color-available)" : "var(--text-muted)", fontWeight: 600, marginTop: "8px", marginBottom: 0 }}>
                               {r.showOnWebsite ? "✓ Published on website" : "⏳ Under review"}
                             </p>

@@ -103,7 +103,7 @@ export default function Navbar() {
               >
                 <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
               </button>
-              <Link href="/portal/login" className="btn-nav-outline" style={{ border: "none", padding: "0 10px" }}>
+              <Link href="/portal/login" className="btn-nav-outline">
                 Resident Login
               </Link>
               <Link href="/book" className="btn-nav-solid">

@@ -44,143 +44,217 @@ export default function ResidentLogin() {
 
   return (
     <main className="login-page-section">
-      <div className="login-container">
-        {/* LEFT: Form Column */}
-        <div className="login-form-col">
-          <Link href="/" className="btn-back-home">
-            <i className="fa-solid fa-arrow-left"></i> Back To Home
-          </Link>
+      <div className="login-card-wrap">
+        {/* LEFT PANEL: Visual Card */}
+        <div className="login-visual-card">
+          {/* Background Image & Ambient Overlay */}
+          <Image
+            src="/images/image_6.png"
+            alt="TNIHPL Living Space"
+            fill
+            className="login-visual-bg"
+            priority
+          />
+          <div className="login-visual-overlay" />
 
-          <div className="login-logo-wrap" style={{ marginBottom: "24px", marginTop: "16px", textAlign: "left" }}>
-            <Link href="/">
-              <img
-                src="/images/logo.png"
-                alt="TNIHPL Logo"
-                style={{
-                  height: "34px",
-                  objectFit: "contain",
-                  filter: "brightness(0) saturate(100%) invert(14%) sepia(52%) saturate(3015%) hue-rotate(204deg) brightness(96%) contrast(98%)"
-                }}
-              />
-            </Link>
+          {/* Bottom Headline & Carousel Indicators inside Left Card */}
+          <div className="login-visual-bottom">
+            <h2 className="login-visual-title">
+              Comfortable, Secure &amp; Active Student Living
+            </h2>
+            <p className="login-visual-desc">
+              Verified hostel stays across Tamil Nadu. Access your portal to
+              manage stay, bills &amp; service requests.
+            </p>
+
+            {/* Slide Indicators */}
+            <div className="login-dots">
+              <span className="login-dot-active"></span>
+              <span className="login-dot"></span>
+              <span className="login-dot"></span>
+            </div>
           </div>
+        </div>
 
-          <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--accent-color)", marginBottom: "8px" }}>
-            RESIDENT PORTAL
-          </div>
+        {/* RIGHT PANEL: Form Area with Logo & Back Navigation */}
+        <div className="login-form-area">
+          <div className="login-form-box">
+            {/* Top Header Bar: Swapped order - Back Navigation on Left, Logo on Right */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "32px",
+              }}
+            >
+              <Link href="/" className="login-btn-back">
+                <i
+                  className="fa-solid fa-arrow-left"
+                  style={{ fontSize: "10px" }}
+                ></i>{" "}
+                Back to Home
+              </Link>
 
-          {step === "email" ? (
-            <form onSubmit={sendCode}>
-              <h1 className="login-title" style={{ marginBottom: "6px" }}>Welcome back</h1>
-              <p className="login-subtitle" style={{ marginBottom: "24px" }}>
-                Sign in to manage your stay, bills and requests.
+              <Link
+                href="/"
+                className="inline-block transition-transform hover:scale-105"
+              >
+                <img
+                  src="/images/logo.png"
+                  alt="TNIHPL Logo"
+                  style={{
+                    height: "38px",
+                    width: "auto",
+                    objectFit: "contain",
+                    filter: "none",
+                  }}
+                />
+              </Link>
+            </div>
+
+            <div style={{ marginBottom: "24px" }}>
+              <span className="login-badge-pill">Resident Portal</span>
+              <h1 className="login-form-title">
+                {step === "email" ? "Welcome back" : "Enter your code"}
+              </h1>
+              <p className="login-form-sub">
+                {step === "email"
+                  ? "Sign in to manage your stay, bills, and requests."
+                  : `We sent a 6-digit verification code to ${email}.`}
               </p>
+            </div>
 
-              <div className="login-field" style={{ marginBottom: "8px" }}>
-                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "8px" }}>
-                  EMAIL ADDRESS
-                </label>
-                <div className="login-input-wrap">
+            {step === "email" ? (
+              <form onSubmit={sendCode}>
+                <div style={{ marginBottom: "20px" }}>
+                  <label className="login-input-label">Email Address</label>
                   <input
                     type="email"
-                    className="login-input"
-                    placeholder="you@example.com"
                     required
                     autoFocus
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="login-styled-input"
                   />
+                  <p
+                    style={{
+                      color: "#64748b",
+                      fontSize: "0.75rem",
+                      marginTop: "8px",
+                    }}
+                  >
+                    Use the email from your approved booking — we&apos;ll send a
+                    6-digit code.
+                  </p>
                 </div>
-              </div>
 
-              <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5, marginBottom: "24px" }}>
-                Use the email from your approved booking — we&apos;ll send a 6-digit code.
-              </p>
+                {error && (
+                  <div
+                    style={{
+                      padding: "12px 16px",
+                      borderRadius: "12px",
+                      background: "rgba(244, 63, 94, 0.1)",
+                      border: "1px solid rgba(244, 63, 94, 0.3)",
+                      color: "#fb7185",
+                      fontSize: "0.8rem",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
 
-              {error && (
-                <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm">
-                  {error}
-                </div>
-              )}
-
-              <button type="submit" className="btn-signin-submit" disabled={busy || !email}>
-                {busy ? "Sending Code…" : "Send code"}
-              </button>
-            </form>
-          ) : (
-            <form onSubmit={signIn}>
-              <h1 className="login-title" style={{ marginBottom: "6px" }}>Enter your code</h1>
-              <p className="login-subtitle" style={{ marginBottom: "24px" }}>
-                We sent a 6-digit verification code to <strong>{email}</strong>.
-              </p>
-
-              <div className="login-field" style={{ marginBottom: "24px" }}>
-                <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "8px" }}>
-                  VERIFICATION CODE
-                </label>
-                <div className="login-input-wrap">
+                <button
+                  type="submit"
+                  disabled={busy || !email}
+                  className="login-btn-primary"
+                >
+                  {busy ? "Sending Code…" : "Send code"}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={signIn}>
+                <div style={{ marginBottom: "20px" }}>
+                  <label className="login-input-label">Verification Code</label>
                   <input
                     type="text"
                     inputMode="numeric"
                     maxLength={6}
-                    className="login-input text-center tracking-widest font-mono text-xl"
-                    placeholder="••••••"
                     required
                     autoFocus
                     value={code}
                     onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+                    placeholder="••••••"
+                    className="login-styled-input"
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "monospace",
+                      fontSize: "1.4rem",
+                      letterSpacing: "0.4em",
+                    }}
                   />
                 </div>
-              </div>
 
-              {error && (
-                <div className="mb-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-sm">
-                  {error}
-                </div>
-              )}
+                {error && (
+                  <div
+                    style={{
+                      padding: "12px 16px",
+                      borderRadius: "12px",
+                      background: "rgba(244, 63, 94, 0.1)",
+                      border: "1px solid rgba(244, 63, 94, 0.3)",
+                      color: "#fb7185",
+                      fontSize: "0.8rem",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
 
-              <button type="submit" className="btn-signin-submit" disabled={busy || code.length !== 6}>
-                {busy ? "Signing in…" : "Sign in to Dashboard"}
-              </button>
+                <button
+                  type="submit"
+                  disabled={busy || code.length !== 6}
+                  className="login-btn-primary"
+                >
+                  {busy ? "Signing in…" : "Sign in to Dashboard"}
+                </button>
 
-              <button
-                type="button"
-                className="btn-different-email"
-                onClick={() => {
-                  setStep("email");
-                  setCode("");
-                  setError("");
-                }}
-              >
-                <i className="fa-solid fa-arrow-left" style={{ fontSize: "0.8rem" }}></i> Use a different email
-              </button>
-            </form>
-          )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStep("email");
+                    setCode("");
+                    setError("");
+                  }}
+                  style={{
+                    width: "100%",
+                    textAlign: "center",
+                    color: "#94a3b8",
+                    background: "none",
+                    border: "none",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    marginTop: "16px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "6px",
+                  }}
+                >
+                  <i
+                    className="fa-solid fa-arrow-left"
+                    style={{ fontSize: "10px" }}
+                  ></i>{" "}
+                  Use a different email
+                </button>
+              </form>
+            )}
 
-          <div className="login-register-footer" style={{ marginTop: "24px", textAlign: "left" }}>
-            Not a resident yet?{" "}
-            <Link href="/book" style={{ color: "var(--accent-color)", fontWeight: 700, textDecoration: "none" }}>
-              Book a stay
-            </Link>
-          </div>
-        </div>
-
-        {/* RIGHT: Visual Image Column with Overlay Badge */}
-        <div className="login-banner-col">
-          <Image
-            src="/images/image_6.png"
-            alt="TNIHPL Premium Living Space"
-            width={600}
-            height={600}
-            className="login-banner-img object-cover w-full h-full"
-          />
-          <div className="login-banner-badge">
-            <div className="badge-seal-icon">
-              <i className="fa-solid fa-house-chimney"></i>
-            </div>
-            <div className="badge-seal-text">
-              TRUSTED BY CLIENTS<br />
-              <small style={{ fontWeight: 400, opacity: 0.8 }}>TNIHPL HOSTELS</small>
+            <div className="login-footer-text">
+              Not a resident yet? <Link href="/book">Book a stay</Link>
             </div>
           </div>
         </div>

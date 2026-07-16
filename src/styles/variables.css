@@ -33,18 +33,12 @@
   --radius-lg: 24px;
   --radius-pill: 50rem;
 
-  /* ─── Font Stack ────────────────────────────────────────────
-     --font-display   → Alan Sans        (Hero h1 display font)
-     --font-heading   → Alan Sans        (h2–h4 section titles)
-     --font-primary   → Alan Sans        (Body text)
-     --font-ui        → Satoshi          (Cards, forms, dashboards)
-     --font-secondary → Switzer          (Nav links, labels, pills)
-  ──────────────────────────────────────────────────────────── */
-  --font-display:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-heading:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-primary:   'Alan Sans Variable', 'Alan Sans', sans-serif;
-  --font-ui:        'Satoshi', 'Alan Sans Variable', sans-serif;
-  --font-secondary: 'Switzer', 'Alan Sans Variable', sans-serif;
+  /* ─── Font Stack ─── */
+  --font-display:   'Lato', sans-serif;
+  --font-heading:   'Lato', sans-serif;
+  --font-primary:   'Lato', sans-serif;
+  --font-ui:        'Lato', sans-serif;
+  --font-secondary: 'Lato', sans-serif;
 
   /* Typography Scale (Clamp for responsiveness) */
   --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
@@ -74,6 +68,7 @@
   --text-dark: #f8fafc;
   --text-body: #cbd5e1;
   --text-muted: #94a3b8;
+  --secondary-color: #0C2B5C;
   --bg-light: #0f172a;
   --bg-white: #1e293b;
   --border-color: #334155;
@@ -123,6 +118,11 @@
   color: var(--text-dark) !important;
 }
 
+:root.dark-theme .form-label,
+:root.dark-theme label {
+  color: #e2e8f0 !important;
+}
+
 :root.dark-theme .filter-select:focus,
 :root.dark-theme .filter-input:focus,
 :root.dark-theme .lc-input:focus,
@@ -143,18 +143,7 @@
   border-color: var(--primary-color) !important;
 }
 
-:root.dark-theme .header.scrolled {
-  background-color: var(--bg-white) !important;
-  border-bottom-color: var(--border-color-light) !important;
-}
 
-:root.dark-theme .nav-link {
-  color: var(--text-body);
-}
-
-:root.dark-theme .header.scrolled .nav-logo-text {
-  color: var(--text-dark) !important;
-}
 
 :root.dark-theme .badge-renters-overlap {
   background: linear-gradient(135deg, var(--primary-color), #093470) !important;
@@ -180,7 +169,6 @@
 }
 
 /* Button & CTA contrast overrides for dark mode */
-:root.dark-theme .btn-nav-solid,
 :root.dark-theme .btn-hero-primary,
 :root.dark-theme .btn-lc-send,
 :root.dark-theme .btn-footer-cta,

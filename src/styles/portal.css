@@ -595,8 +595,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #1252AE 0%, #0C2B5C 100%) !important;
+  color: #ffffff !important;
   font-weight: 700;
   font-size: var(--font-sm);
   padding: 12px 28px;
@@ -610,7 +610,7 @@
 .btn-portal-submit:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(18, 82, 174, 0.38);
-  background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, #0d3d82 0%, #071739 100%) !important;
 }
 
 /* ============================================================
@@ -792,4 +792,9 @@
   background: var(--bg-light);
   border-color: var(--border-color);
   color: var(--text-muted);
+}
+
+:root.dark-theme .portal-card span,
+:root.dark-theme .portal-card label {
+  color: var(--text-dark) !important;
 }

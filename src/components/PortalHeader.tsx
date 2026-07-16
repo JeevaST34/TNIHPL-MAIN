@@ -67,13 +67,7 @@ export default function PortalHeader() {
               <img src="/images/logo.png" className="nav-logo-img" alt="TNIHPL Logo" />
             </Link>
 
-            <ul className={`nav-menu ${mobileOpen ? "active" : ""}`}>
-              <li className="nav-item"><Link href="/" className="nav-link" onClick={() => setMobileOpen(false)}>Home</Link></li>
-              <li className="nav-item"><Link href="/#stays" className="nav-link" onClick={() => setMobileOpen(false)}>Hostels</Link></li>
-              <li className="nav-item"><Link href="/#about" className="nav-link" onClick={() => setMobileOpen(false)}>About</Link></li>
-              <li className="nav-item"><Link href="/#contact" className="nav-link" onClick={() => setMobileOpen(false)}>Contact</Link></li>
-              <li className="nav-item"><Link href="/portal" className="nav-link active" onClick={() => setMobileOpen(false)}>Portal</Link></li>
-            </ul>
+            {/* Public nav items removed for logged-in resident portal */}
 
             <div className="nav-actions">
               <button
@@ -88,7 +82,7 @@ export default function PortalHeader() {
               </button>
             </div>
 
-            {/* Mobile Theme Toggle & Navigation Toggle */}
+            {/* Mobile Theme Toggle & Actions */}
             <div className="mobile-nav-toggle-wrap">
               <button
                 onClick={toggleDarkMode}
@@ -97,14 +91,9 @@ export default function PortalHeader() {
               >
                 <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
               </button>
-              <div
-                className={`nav-toggle ${mobileOpen ? "active" : ""}`}
-                onClick={() => setMobileOpen(!mobileOpen)}
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+              <button onClick={signOut} className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white/10 text-white border border-white/20">
+                Sign out
+              </button>
             </div>
           </nav>
         </div>
@@ -123,11 +112,6 @@ export default function PortalHeader() {
         </div>
 
         <div className="drawer-menu">
-          <Link href="/" className="drawer-link" onClick={() => setMobileOpen(false)}>Home</Link>
-          <Link href="/#stays" className="drawer-link" onClick={() => setMobileOpen(false)}>Hostels</Link>
-          <Link href="/#about" className="drawer-link" onClick={() => setMobileOpen(false)}>About</Link>
-          <Link href="/#contact" className="drawer-link" onClick={() => setMobileOpen(false)}>Contact</Link>
-          <Link href="/portal" className="drawer-link active" onClick={() => setMobileOpen(false)}>Portal</Link>
         </div>
 
         <div className="drawer-actions">
