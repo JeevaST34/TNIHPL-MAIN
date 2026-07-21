@@ -90,7 +90,7 @@ export default function Contact() {
                   onChange={(e) => set("message", e.target.value)}
                 />
                 {status === "error" && (
-                  <p className="text-sm font-semibold text-rose-600">{error}</p>
+                  <p className="text-base font-semibold text-rose-600">{error}</p>
                 )}
                 <button
                   type="submit"

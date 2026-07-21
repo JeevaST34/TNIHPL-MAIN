@@ -104,15 +104,15 @@ export function BookWithConfidence() {
             <ul className="check-list mt-4 mb-4">
               <li className="check-item">
                 <i className="fa-solid fa-circle-check text-emerald-600 text-base"></i>
-                <span className="font-medium text-sm">Email OTP verified secure student accounts</span>
+                <span className="font-medium text-base">Email OTP verified secure student accounts</span>
               </li>
               <li className="check-item">
                 <i className="fa-solid fa-circle-check text-emerald-600 text-base"></i>
-                <span className="font-medium text-sm">Itemized digital bills, simple rent payments &amp; invoices</span>
+                <span className="font-medium text-base">Itemized digital bills, simple rent payments &amp; invoices</span>
               </li>
               <li className="check-item">
                 <i className="fa-solid fa-circle-check text-emerald-600 text-base"></i>
-                <span className="font-medium text-sm">Prompt maintenance checks and service tickets via portal</span>
+                <span className="font-medium text-base">Prompt maintenance checks and service tickets via portal</span>
               </li>
             </ul>
 

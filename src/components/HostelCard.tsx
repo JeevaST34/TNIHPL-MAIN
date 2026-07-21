@@ -57,7 +57,7 @@ export default function HostelCard({
           <span className="card-spec"><i className="fa-solid fa-wifi"></i> Free Wi-Fi</span>
           <span className="card-spec"><i className="fa-solid fa-utensils"></i> Meals</span>
         </div>
-        <Link href="/book" className="btn-card-action">
+        <Link href={`/book?hostelId=${hostel.id}`} className="btn-card-action">
           Book Stay &rarr;
         </Link>
       </div>

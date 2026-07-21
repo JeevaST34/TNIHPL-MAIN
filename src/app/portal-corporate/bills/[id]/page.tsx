@@ -3,24 +3,37 @@
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import PortalHeader, { PortalSubnav } from "@/components/PortalHeader";
+import CorporatePortalHeader, {
+  CorporatePortalSubnav,
+} from "@/components/CorporatePortalHeader";
 import { Footer } from "@/components/StaticSections";
-import { resident, getToken, BILL_STATUS, BILL_TYPE, type ResidentBill } from "@/lib/resident";
+import {
+  corporatePortal,
+  getToken,
+  BILL_STATUS,
+  BILL_TYPE,
+  type CompanyBillListItem,
+  type CompanyProfile,
+} from "@/lib/corporate-portal";
 import { loadRazorpay, getRazorpay, type RazorpaySuccess } from "@/lib/razorpay";
 
-const inr = (n: number) => `₹${n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—");
+const inr = (n: number) =>
+  `₹${n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const fmt = (d: string | null) =>
+  d ? new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—";
 
 function statusBadge(s: number) {
-  const cls = s === 2 ? "status-badge status-available" : s === 3 ? "status-badge" : s === 4 ? "status-badge" : "status-badge status-sold-out";
+  const cls =
+    s === 2 ? "status-badge status-available" : s === 3 ? "status-badge" : s === 4 ? "status-badge" : "status-badge status-sold-out";
   return <span className={cls}>{BILL_STATUS[s] ?? "—"}</span>;
 }
 
-export default function BillDetailPage() {
+export default function CorporateBillDetailPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const id = params.id;
-  const [bill, setBill] = useState<ResidentBill | null>(null);
+  const [bill, setBill] = useState<CompanyBillListItem | null>(null);
+  const [profile, setProfile] = useState<CompanyProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [paying, setPaying] = useState(false);
@@ -29,10 +42,15 @@ export default function BillDetailPage() {
 
   const load = useCallback(async () => {
     try {
-      setBill(await resident.bill(id));
+      const [b, p] = await Promise.all([
+        corporatePortal.bill(id),
+        corporatePortal.profile().catch(() => null),
+      ]);
+      setBill(b);
+      setProfile(p);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not load this bill.");
-      if (!getToken()) router.replace("/portal/login");
+      if (!getToken()) router.replace("/portal-corporate/login");
     } finally {
       setLoading(false);
     }
@@ -40,14 +58,14 @@ export default function BillDetailPage() {
 
   useEffect(() => {
     if (!getToken()) {
-      router.replace("/portal/login");
+      router.replace("/portal-corporate/login");
       return;
     }
     load();
   }, [load, router]);
 
   async function settle(payment: { paymentId: string; orderId: string; signature: string }) {
-    await resident.verifyPayment(id, {
+    await corporatePortal.verifyPayment(id, {
       razorpayPaymentId: payment.paymentId,
       razorpayOrderId: payment.orderId,
       razorpaySignature: payment.signature,
@@ -61,10 +79,9 @@ export default function BillDetailPage() {
     setPaying(true);
     setPayError("");
     try {
-      const order = await resident.checkout(id);
+      const order = await corporatePortal.checkout(id);
 
       if (order.keyId) {
-        // Real Razorpay Checkout popup
         const ok = await loadRazorpay();
         const Razorpay = getRazorpay();
         if (!ok || !Razorpay) throw new Error("Could not load the secure payment window. Check your connection.");
@@ -75,7 +92,7 @@ export default function BillDetailPage() {
           currency: order.currency,
           name: "TNIHPL Residences",
           description: order.billTitle ?? `Invoice ${order.invoiceNumber}`,
-          prefill: { name: order.residentName, email: order.residentEmail, contact: order.residentMobile ?? "" },
+          prefill: { name: order.companyName, email: order.contactEmail, contact: order.contactMobile ?? "" },
           theme: { color: "#1252AE" },
           handler: async (resp: RazorpaySuccess) => {
             try {
@@ -93,7 +110,6 @@ export default function BillDetailPage() {
         });
         rzp.open();
       } else {
-        // Sandbox demo (no Razorpay keys configured yet)
         await settle({ paymentId: `demo_${Date.now()}`, orderId: order.orderId, signature: "demo" });
       }
     } catch (e) {
@@ -144,7 +160,7 @@ export default function BillDetailPage() {
           }
         }
       ` }} />
-      <PortalHeader />
+      <CorporatePortalHeader />
 
       <div className="breadcrumbs-header print:hidden">
         <div className="container">
@@ -162,11 +178,11 @@ export default function BillDetailPage() {
         </div>
       </div>
 
-      <PortalSubnav />
+      <CorporatePortalSubnav />
       <div className="portal-section-wrapper" style={{ paddingTop: "32px", paddingBottom: "60px" }}>
         <div className="container max-w-3xl mx-auto">
           <div className="print:hidden mb-6">
-            <Link href="/portal/bills" className="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-blue-600 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-all mb-2">
+            <Link href="/portal-corporate/bills" className="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-blue-600 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-all mb-2">
               <i className="fa-solid fa-arrow-left text-xs"></i> Back to all bills
             </Link>
           </div>
@@ -194,7 +210,7 @@ export default function BillDetailPage() {
                 <div style={{ background: "#0c2b5c", color: "#ffffff", padding: "28px 32px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
                   <div>
                     <img src="/images/logo.png" alt="TNIHPL Logo" style={{ height: "40px", objectFit: "contain", marginBottom: "6px" }} />
-                    <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.75)", margin: 0, fontWeight: 500 }}>{bill.hostelName ?? "Hostel Invoice"}</p>
+                    <p style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.75)", margin: 0, fontWeight: 500 }}>Corporate Invoice</p>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "#f7a809", letterSpacing: "0.05em" }}>OFFICIAL INVOICE</div>
@@ -228,12 +244,7 @@ export default function BillDetailPage() {
                     <tbody style={{ fontSize: "0.875rem", color: "#1e293b" }}>
                       <tr style={{ borderBottom: "1px solid #f1f5f9" }}>
                         <td style={{ paddingTop: "16px", paddingBottom: "16px", fontWeight: 700, color: "#0c2b5c" }}>
-                          {bill.billTitle ?? BILL_TYPE[bill.billType] ?? "Hostel Fee"}
-                          {bill.billDescription && (
-                            <div style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 400, marginTop: "2px" }}>
-                              {bill.billDescription}
-                            </div>
-                          )}
+                          {bill.billTitle ?? BILL_TYPE[bill.billType] ?? "Corporate Rent"}
                         </td>
                         <td style={{ paddingTop: "16px", paddingBottom: "16px", textAlign: "right", fontWeight: 700, fontSize: "1rem", color: "#0c2b5c" }}>
                           {inr(bill.billAmount)}
@@ -254,15 +265,10 @@ export default function BillDetailPage() {
                     <span style={{ fontSize: "1.75rem", fontWeight: 800, color: "#1252ae" }}>{inr(bill.balance)}</span>
                   </div>
 
-                  {/* AMOUNT IN WORDS & TXN NOTES */}
-                  {bill.billAmountInWords && (
+                  {/* AMOUNT IN WORDS */}
+                  {bill.amountInWords && (
                     <p style={{ marginTop: "18px", fontSize: "0.8125rem", fontStyle: "italic", color: "#64748b" }}>
-                      Amount in words: {bill.billAmountInWords}
-                    </p>
-                  )}
-                  {bill.paidAmount > 0 && (bill.modeOfPayment || bill.txnId) && (
-                    <p style={{ marginTop: "8px", fontSize: "0.8125rem", color: "#059669", fontWeight: 600 }}>
-                      Payment{bill.modeOfPayment ? ` via ${bill.modeOfPayment}` : ""}{bill.txnId ? ` · Txn ${bill.txnId}` : ""}{bill.receiptDate ? ` · ${fmt(bill.receiptDate)}` : ""}
+                      Amount in words: {bill.amountInWords}
                     </p>
                   )}
                 </div>

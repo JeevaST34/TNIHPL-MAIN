@@ -21,6 +21,46 @@ export type Availability = {
   occupiedBeds: number;
 };
 
+// Mirrors TNIHPL.Domain.Corporate.CorporateDocumentType (backend/src/TNIHPL.Domain/Corporate/CorporateDocument.cs).
+export type CorporateDocumentType =
+  | "IncorporationOrConsentToOperate"
+  | "EmployeeStrengthProof"
+  | "AnnualTurnoverProof"
+  | "GstinCertificate"
+  | "SignatoryIdProof";
+
+export type CompanyWritePayload = {
+  companyCode?: string | null;
+  name: string;
+  gstin?: string | null;
+  state?: string | null;
+  contactName?: string | null;
+  mobile?: string | null;
+  email: string;
+  address?: string | null;
+  corporateCode?: string | null;
+  recentPhoto?: string | null;
+  addressProof?: string | null;
+};
+
+export type CreateCorporateReservationPayload = {
+  companyId: string;
+  hostelId: string;
+  roomTypeId?: string | null;
+  bedTypeId?: string | null;
+  totalBeds: number;
+  checkInDate?: string | null;
+  agreementDate?: string | null;
+  agreementExpiryDate?: string | null;
+  initialAdvanceAmount: number;
+  monthlyRentDiscount: number;
+  isGstExempted: boolean;
+  contactName?: string | null;
+  contactPhone?: string | null;
+  contactEmail?: string | null;
+  uploadAgreementDocument?: string | null;
+};
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
@@ -36,7 +76,9 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
     }
     throw new Error(message);
   }
-  return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
+  if (res.status === 204) return undefined as T;
+  const text = await res.text();
+  return text ? (JSON.parse(text) as T) : (undefined as T);
 }
 
 export const api = {
@@ -80,5 +122,67 @@ export const api = {
     if (!res.ok) throw new Error("Upload failed");
     const body = (await res.json()) as { key: string };
     return body.key;
+  },
+
+  // ---- Corporate public intake (no admin login required) ----
+
+  createCompany: (payload: CompanyWritePayload) =>
+    http<{ id: string }>("/public/companies", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  sendCompanyOtp: (companyId: string) =>
+    http<void>(`/public/companies/${companyId}/send-otp`, { method: "POST" }),
+
+  verifyCompanyEmail: (companyId: string, code: string) =>
+    http<void>(`/public/companies/${companyId}/verify-email`, {
+      method: "POST",
+      body: JSON.stringify({ code }),
+    }),
+
+  uploadCompanyDocument: async (
+    companyId: string,
+    type: CorporateDocumentType,
+    file: File,
+  ): Promise<string> => {
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(
+      `${API_BASE}/public/companies/${companyId}/documents?type=${type}`,
+      { method: "POST", body: form },
+    );
+    if (!res.ok) throw new Error("Document upload failed");
+    const body = (await res.json()) as { id: string };
+    return body.id;
+  },
+
+  createCorporateReservation: (payload: CreateCorporateReservationPayload) =>
+    http<{ id: string }>("/public/corporate-reservations", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  uploadEmployeeRoster: async (
+    reservationId: string,
+    file: File,
+  ): Promise<{ count: number }> => {
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(
+      `${API_BASE}/public/corporate-reservations/${reservationId}/employees`,
+      { method: "POST", body: form },
+    );
+    if (!res.ok) {
+      let message = "Employee roster upload failed.";
+      try {
+        const body = await res.json();
+        message = body.error ?? message;
+      } catch {
+        /* ignore */
+      }
+      throw new Error(message);
+    }
+    return (await res.json()) as { count: number };
   },
 };

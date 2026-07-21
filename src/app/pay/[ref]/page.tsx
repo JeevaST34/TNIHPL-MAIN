@@ -12,7 +12,7 @@ export default async function PayPage({ params }: { params: Promise<{ ref: strin
           ₹
         </div>
         <h1 className="text-2xl font-extrabold text-slate-900 mb-2">Complete Your Payment</h1>
-        <p className="text-slate-600 text-sm mb-3">
+        <p className="text-slate-600 text-base mb-3">
           This is a sandbox payment page for invoice <span className="font-mono font-bold text-slate-900">{ref}</span>.
         </p>
         <p className="text-xs text-slate-500 leading-relaxed mb-6">

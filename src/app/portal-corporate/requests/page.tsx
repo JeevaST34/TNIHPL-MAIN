@@ -2,22 +2,32 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import PortalHeader, { PortalSubnav } from "@/components/PortalHeader";
+import CorporatePortalHeader, {
+  CorporatePortalSubnav,
+} from "@/components/CorporatePortalHeader";
 import { Footer } from "@/components/StaticSections";
-import { resident, getToken, REQUEST_STATUS, REQUEST_PRIORITY, type ResidentServiceRequest } from "@/lib/resident";
+import {
+  corporatePortal,
+  getToken,
+  REQUEST_STATUS,
+  REQUEST_PRIORITY,
+  type CompanyServiceRequest,
+} from "@/lib/corporate-portal";
 
 function statusBadge(s: number) {
   const cls = s === 3 ? "status-badge status-available" : s === 4 ? "status-badge" : s === 2 ? "status-badge" : "status-badge status-sold-out";
   return <span className={cls}>{REQUEST_STATUS[s] ?? "—"}</span>;
 }
 
-export default function RequestsPage() {
+export default function CorporateRequestsPage() {
   const router = useRouter();
-  const [requests, setRequests] = useState<ResidentServiceRequest[]>([]);
+  const [requests, setRequests] = useState<CompanyServiceRequest[]>([]);
+  const [rooms, setRooms] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // form state
+  const [roomNumber, setRoomNumber] = useState("");
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState(2);
@@ -29,10 +39,16 @@ export default function RequestsPage() {
 
   async function load() {
     try {
-      setRequests(await resident.serviceRequests());
+      const [reqs, roomList] = await Promise.all([
+        corporatePortal.serviceRequests(),
+        corporatePortal.rooms(),
+      ]);
+      setRequests(reqs);
+      setRooms(roomList);
+      if (roomList.length > 0 && !roomNumber) setRoomNumber(roomList[0]);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not load your requests.");
-      if (!getToken()) router.replace("/portal/login");
+      if (!getToken()) router.replace("/portal-corporate/login");
     } finally {
       setLoading(false);
     }
@@ -40,7 +56,7 @@ export default function RequestsPage() {
 
   useEffect(() => {
     if (!getToken()) {
-      router.replace("/portal/login");
+      router.replace("/portal-corporate/login");
       return;
     }
     load();
@@ -52,7 +68,7 @@ export default function RequestsPage() {
     setFormError("");
     setUploadingPhoto(true);
     try {
-      const key = await resident.uploadServiceRequestPhoto(file);
+      const key = await corporatePortal.uploadServiceRequestPhoto(file);
       setPhotoKey(key);
       setPhotoName(file.name);
     } catch (err) {
@@ -67,7 +83,8 @@ export default function RequestsPage() {
     setSubmitting(true);
     setFormError("");
     try {
-      await resident.createServiceRequest({
+      await corporatePortal.createServiceRequest({
+        roomNumber,
         type: type.trim() || null,
         problemDescription: description.trim(),
         priority,
@@ -90,7 +107,7 @@ export default function RequestsPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <PortalHeader />
+      <CorporatePortalHeader />
 
       <div className="breadcrumbs-header">
         <div className="container">
@@ -101,13 +118,14 @@ export default function RequestsPage() {
               </span>
               <h1 className="breadcrumbs-title">Service Requests</h1>
               <p className="hero-subtitle-text">
-                Raise maintenance tickets for plumbing, electrical, Wi-Fi or housekeeping &amp; track resolution status.
+                Raise maintenance tickets for any room occupied by your
+                employees &amp; track resolution status.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <PortalSubnav />
+      <CorporatePortalSubnav />
 
       <div className="portal-section-wrapper">
         <div className="container max-w-4xl mx-auto">
@@ -119,14 +137,25 @@ export default function RequestsPage() {
             <form onSubmit={submit}>
               <div className="form-grid-2">
                 <div className="portal-form-group">
-                  <label className="portal-form-label">Category <span>(optional)</span></label>
-                  <input
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
-                    placeholder="e.g. Plumbing, Electrical, Wi-Fi, AC"
-                    maxLength={100}
-                    className="portal-form-control"
-                  />
+                  <label className="portal-form-label">Room Number *</label>
+                  {rooms.length === 0 ? (
+                    <p className="text-xs text-slate-500">
+                      No occupied rooms found for your booking yet.
+                    </p>
+                  ) : (
+                    <select
+                      value={roomNumber}
+                      onChange={(e) => setRoomNumber(e.target.value)}
+                      required
+                      className="portal-form-control"
+                    >
+                      {rooms.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
                 <div className="portal-form-group">
                   <label className="portal-form-label">Priority</label>
@@ -140,6 +169,17 @@ export default function RequestsPage() {
                     ))}
                   </select>
                 </div>
+              </div>
+
+              <div className="portal-form-group">
+                <label className="portal-form-label">Category <span>(optional)</span></label>
+                <input
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                  placeholder="e.g. Plumbing, Electrical, Wi-Fi, AC"
+                  maxLength={100}
+                  className="portal-form-control"
+                />
               </div>
 
               <div className="portal-form-group">
@@ -181,7 +221,7 @@ export default function RequestsPage() {
 
               <button
                 type="submit"
-                disabled={submitting || !description.trim()}
+                disabled={submitting || !description.trim() || !roomNumber}
                 className="btn-portal-submit"
               >
                 <i className="fa-solid fa-paper-plane"></i> {submitting ? "Submitting Ticket…" : "Submit Request"}
@@ -192,13 +232,13 @@ export default function RequestsPage() {
           {/* History */}
           <div className="portal-card">
             <div className="portal-card-title">
-              <i className="fa-solid fa-list-check"></i> Your Requests
+              <i className="fa-solid fa-list-check"></i> Company Requests
             </div>
 
             {loading ? (
               <div className="text-center text-slate-500" style={{ padding: "30px 0" }}>
                 <i className="fa-solid fa-circle-notch fa-spin text-2xl text-primary mb-2 block"></i>
-                Loading your service tickets…
+                Loading service tickets…
               </div>
             ) : error ? (
               <div style={{ color: "var(--danger-color)", padding: "12px 0" }}>
@@ -206,7 +246,7 @@ export default function RequestsPage() {
               </div>
             ) : requests.length === 0 ? (
               <p className="portal-empty-msg">
-                <i className="fa-regular fa-circle-dot mr-1"></i> You haven&apos;t raised any requests yet.
+                <i className="fa-regular fa-circle-dot mr-1"></i> No requests raised yet.
               </p>
             ) : (
               <div className="portal-requests-list">
@@ -215,13 +255,12 @@ export default function RequestsPage() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px" }}>
                       <div style={{ flex: 1 }}>
                         <div style={{ display: "flex", gap: "8px", alignItems: "center", marginBottom: "6px", flexWrap: "wrap" }}>
-                          {r.type ? (
-                            <span className="status-tag status-tag-reserved" style={{ fontSize: "0.65rem", padding: "2px 10px" }}>
-                              {r.type}
-                            </span>
-                          ) : (
+                          <span className="status-tag status-tag-reserved" style={{ fontSize: "0.65rem", padding: "2px 10px" }}>
+                            Room {r.roomNumber ?? "—"}
+                          </span>
+                          {r.type && (
                             <span className="status-tag" style={{ fontSize: "0.65rem", padding: "2px 10px" }}>
-                              General
+                              {r.type}
                             </span>
                           )}
                           <span style={{ fontSize: "var(--font-xs)", color: "var(--text-muted)", fontWeight: 500 }}>

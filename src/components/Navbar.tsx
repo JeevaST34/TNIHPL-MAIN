@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -17,6 +17,21 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [loginMenuOpen, setLoginMenuOpen] = useState(false);
+  const loginMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!loginMenuOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (loginMenuRef.current && !loginMenuRef.current.contains(e.target as Node)) {
+        setLoginMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [loginMenuOpen]);
 
   useEffect(() => {
     if (document.documentElement.classList.contains("dark-theme")) {
@@ -121,9 +136,52 @@ export default function Navbar() {
                   className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}
                 ></i>
               </button>
-              <Link href="/portal/login" className="btn-nav-outline">
-                Resident Login
-              </Link>
+              <div
+                ref={loginMenuRef}
+                style={{ position: "relative" }}
+              >
+                <button
+                  type="button"
+                  className="btn-nav-outline"
+                  onClick={() => setLoginMenuOpen((v) => !v)}
+                  aria-haspopup="true"
+                  aria-expanded={loginMenuOpen}
+                >
+                  Login <i className="fa-solid fa-chevron-down" style={{ fontSize: "0.7em", marginLeft: "6px" }}></i>
+                </button>
+                {loginMenuOpen && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 8px)",
+                      right: 0,
+                      minWidth: "200px",
+                      background: "var(--bg-white)",
+                      borderRadius: "12px",
+                      boxShadow: "var(--shadow-lg)",
+                      border: "1px solid var(--border-color-light)",
+                      overflow: "hidden",
+                      zIndex: 50,
+                    }}
+                  >
+                    <Link
+                      href="/portal/login"
+                      className="login-dropdown-item"
+                      onClick={() => setLoginMenuOpen(false)}
+                    >
+                      <i className="fa-solid fa-user"></i> Resident Login
+                    </Link>
+                    <Link
+                      href="/portal-corporate/login"
+                      className="login-dropdown-item"
+                      style={{ borderTop: "1px solid var(--border-color-light)" }}
+                      onClick={() => setLoginMenuOpen(false)}
+                    >
+                      <i className="fa-solid fa-building"></i> Corporate Login
+                    </Link>
+                  </div>
+                )}
+              </div>
               <Link href="/book" className="btn-nav-solid">
                 Book a Stay
               </Link>
@@ -193,6 +251,13 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
           >
             Resident Login
+          </Link>
+          <Link
+            href="/portal-corporate/login"
+            className="btn-nav-outline text-center"
+            onClick={() => setMobileOpen(false)}
+          >
+            Corporate Login
           </Link>
           <Link
             href="/book"

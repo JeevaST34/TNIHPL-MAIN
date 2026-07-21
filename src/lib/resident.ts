@@ -131,6 +131,7 @@ export type ResidentServiceRequest = {
   completedDate: string | null;
   daysOpen: number;
   comments: string | null;
+  pictures: string | null;
 };
 
 export const REQUEST_STATUS: Record<number, string> = { 1: "Open", 2: "In progress", 3: "Resolved", 4: "Closed" };
@@ -210,8 +211,31 @@ export const resident = {
 
   serviceRequests: () => authed<ResidentServiceRequest[]>("/me/service-requests"),
   serviceRequest: (id: string) => authed<ResidentServiceRequest>(`/me/service-requests/${id}`),
-  createServiceRequest: (body: { type: string | null; problemDescription: string; priority: number }) =>
+  createServiceRequest: (body: { type: string | null; problemDescription: string; priority: number; pictures?: string | null }) =>
     authed<{ id: string }>("/me/service-requests", { method: "POST", body: JSON.stringify(body) }),
+
+  uploadServiceRequestPhoto: async (file: File): Promise<string> => {
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(`${API_BASE}/me/service-requests/photo`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${getToken() ?? ""}` },
+      body: form,
+    });
+    if (res.status === 401 || res.status === 403) {
+      clearToken();
+      throw new Error("Your session has expired. Please sign in again.");
+    }
+    if (!res.ok) {
+      let message = `Upload failed (${res.status})`;
+      try {
+        message = (await res.json()).error ?? message;
+      } catch {}
+      throw new Error(message);
+    }
+    const body = (await res.json()) as { key: string };
+    return body.key;
+  },
 
   createStayChange: (body: { kind: number; note: string | null }) =>
     authed<{ id: string }>("/me/stay-requests", { method: "POST", body: JSON.stringify(body) }),
